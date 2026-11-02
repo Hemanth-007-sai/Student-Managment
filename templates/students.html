@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Manage Students | Student Management{% endblock %}
+{% block content %}
+  <section class="card">
+    <div class="toolbar">
+      <div>
+        <h1>Student Information</h1>
+        <p>Signed in as {{ session.get('student_name', 'student') }}. View, update, or delete student records.</p>
+      </div>
+      <form action="{{ url_for('login.logout') }}" method="post">
+        <button class="button secondary" type="submit">Log Out</button>
+      </form>
+    </div>
+    {% if students %}
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Department</th><th>Actions</th></tr></thead>
+        <tbody>
+          {% for student in students %}
+            <tr>
+              <td>{{ student.id }}</td>
+              <td><a href="{{ url_for('management.student_details', student_id=student.id) }}">{{ student.name }}</a></td>
+              <td>{{ student.email or 'Not set' }}</td>
+              <td>{{ student.department }}</td>
+              <td>
+                <div class="actions">
+                  <a class="button secondary" href="{{ url_for('management.edit_student', student_id=student.id) }}">Edit</a>
+                  <form action="{{ url_for('management.delete_student', student_id=student.id) }}" method="post" onsubmit="return confirm('Delete this student record?');">
+                    <button class="button danger" type="submit">Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="empty">No student records have been registered yet.</p>
+    {% endif %}
+  </section>
+{% endblock %}

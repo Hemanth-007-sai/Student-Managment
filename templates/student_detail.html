@@ -3,12 +3,13 @@
 {% block content %}
   <section class="card">
     <h1>Student Details</h1>
-    <p><strong>Student ID:</strong> {{ student.id }}</p>
+    <p><strong>ID:</strong> {{ student.id }}</p>
     <p><strong>Name:</strong> {{ student.name }}</p>
+    <p><strong>Email:</strong> {{ student.email or 'Not set' }}</p>
     <p><strong>Department:</strong> {{ student.department }}</p>
     <div class="form-actions">
-      <a class="button" href="{{ url_for('edit_student', student_id=student.id) }}">Edit Student</a>
-      <a class="button secondary" href="{{ url_for('home') }}">Back to Records</a>
+      <a class="button" href="{{ url_for('management.edit_student', student_id=student.id) }}">Edit Student</a>
+      <a class="button secondary" href="{{ url_for('management.students') }}">Back to Records</a>
     </div>
   </section>
 {% endblock %}

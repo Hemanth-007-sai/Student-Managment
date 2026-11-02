@@ -1,16 +1,19 @@
 {% extends "base.html" %}
-{% block title %}{% if student %}Edit Student{% else %}Add Student{% endif %} | Student Management{% endblock %}
+{% block title %}Edit Student | Student Management{% endblock %}
 {% block content %}
   <section class="card">
-    <h1>{% if student %}Edit Student{% else %}Add a Student{% endif %}</h1>
+    <h1>Edit Student Record</h1>
+    {% if error %}<p class="message error" role="alert">{{ error }}</p>{% endif %}
     <form method="post">
       <label for="name">Student Name</label>
-      <input id="name" name="name" type="text" maxlength="100" value="{{ request.form.get('name', student.name if student else '') }}" required>
+      <input id="name" name="name" maxlength="100" value="{{ request.form.get('name', student.name) }}" required>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" maxlength="254" value="{{ request.form.get('email', student.email or '') }}" required>
       <label for="department">Department</label>
-      <input id="department" name="department" type="text" maxlength="100" value="{{ request.form.get('department', student.department if student else '') }}" required>
+      <input id="department" name="department" maxlength="100" value="{{ request.form.get('department', student.department) }}" required>
       <div class="form-actions">
-        <button class="button" type="submit">{% if student %}Save Changes{% else %}Add Student{% endif %}</button>
-        <a class="button secondary" href="{{ url_for('home') }}">Cancel</a>
+        <button class="button" type="submit">Save Changes</button>
+        <a class="button secondary" href="{{ url_for('management.students') }}">Cancel</a>
       </div>
     </form>
   </section>
