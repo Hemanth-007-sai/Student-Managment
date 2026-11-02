@@ -1,8 +1,8 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, jsonify, render_template, request
 
-from database import init_db
+from database import get_db, init_db
 from login import login_bp
 from management import management_bp
 from registration import registration_bp
@@ -17,6 +17,19 @@ app.register_blueprint(management_bp)
 @app.route("/")
 def home():
     return render_template("index.html")
+
+
+@app.route("/search")
+def search_student():
+    name = request.args.get("name", "").strip()
+    with get_db() as connection:
+        records = connection.execute(
+            """SELECT id, name, email, department
+               FROM students WHERE name LIKE ? COLLATE NOCASE
+               ORDER BY name LIMIT 100""",
+            (f"%{name}%",),
+        ).fetchall()
+    return jsonify([dict(record) for record in records])
 
 
 init_db()
