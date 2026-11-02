@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Registration</title>
+    <style>
+      body { margin: 0; padding: 32px 16px; background: #f3f6fb; color: #18304b; font-family: Arial, sans-serif; }
+      main { max-width: 480px; margin: 5vh auto; padding: 28px; background: white; border: 1px solid #e1e8f0; border-radius: 12px; box-shadow: 0 8px 24px #173b6710; }
+      h1 { color: #173b67; }
+      label { display: block; margin: 15px 0 6px; font-weight: 700; }
+      input { width: 100%; box-sizing: border-box; padding: 11px; border: 1px solid #cbd6e2; border-radius: 7px; font: inherit; }
+      button, .link { display: inline-block; margin-top: 20px; padding: 11px 15px; border: 0; border-radius: 7px; background: #1769aa; color: white; text-decoration: none; font: inherit; cursor: pointer; }
+      .error { padding: 11px; color: #a51f2b; background: #fff0f0; border-radius: 7px; }
+      .back { margin-left: 10px; color: #1769aa; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Student Registration</h1>
+      {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+      <form method="post">
+        <label for="name">Student Name</label>
+        <input id="name" name="name" required maxlength="100" value="{{ request.form.get('name', '') }}">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required maxlength="254" value="{{ request.form.get('email', '') }}">
+        <label for="password">Password (at least 6 characters)</label>
+        <input id="password" name="password" type="password" required minlength="6">
+        <label for="department">Department</label>
+        <input id="department" name="department" required maxlength="100" value="{{ request.form.get('department', '') }}">
+        <button type="submit">Register</button>
+        <a class="back" href="{{ url_for('home') }}">Home</a>
+      </form>
+    </main>
+  </body>
+</html>
