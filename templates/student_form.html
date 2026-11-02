@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{% if student %}Edit Student{% else %}Add Student{% endif %} | Student Management{% endblock %}
+{% block content %}
+  <section class="card">
+    <h1>{% if student %}Edit Student{% else %}Add a Student{% endif %}</h1>
+    <form method="post">
+      <label for="name">Student Name</label>
+      <input id="name" name="name" type="text" maxlength="100" value="{{ request.form.get('name', student.name if student else '') }}" required>
+      <label for="department">Department</label>
+      <input id="department" name="department" type="text" maxlength="100" value="{{ request.form.get('department', student.department if student else '') }}" required>
+      <div class="form-actions">
+        <button class="button" type="submit">{% if student %}Save Changes{% else %}Add Student{% endif %}</button>
+        <a class="button secondary" href="{{ url_for('home') }}">Cancel</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}

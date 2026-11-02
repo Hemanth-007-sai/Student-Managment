@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Information Management System</title>
+    <style>
+      body { margin: 0; padding: 40px 20px; background: #f3f6fb; color: #18304b; font-family: Arial, sans-serif; }
+      main { max-width: 720px; margin: 8vh auto; padding: 36px; background: white; border-radius: 14px; box-shadow: 0 12px 36px #173b6718; }
+      h1 { color: #173b67; }
+      nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+      a { padding: 12px 16px; color: white; background: #1769aa; border-radius: 7px; text-decoration: none; }
+      a:last-child { background: #49627f; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Student Information Management System</h1>
+      <p>Welcome to the Flask application. Register an account to continue.</p>
+      <nav>
+        <a href="{{ url_for('registration.register') }}">Student Registration</a>
+        <a href="{{ url_for('login.login') }}">Student Login</a>
+      </nav>
+    </main>
+  </body>
+</html>

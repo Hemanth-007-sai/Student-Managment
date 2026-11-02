@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Student Management{% endblock %}</title>
+    <style>
+      :root { color-scheme: light; font-family: Arial, sans-serif; color: #18304b; background: #f3f6fb; }
+      body { margin: 0; }
+      header { background: #173b67; color: white; padding: 18px max(5vw, 24px); }
+      header a { color: white; text-decoration: none; font-size: 1.2rem; font-weight: 700; }
+      main { max-width: 900px; margin: 36px auto; padding: 0 20px; }
+      .card { background: white; border: 1px solid #e1e8f0; border-radius: 12px; padding: 24px; box-shadow: 0 8px 24px #173b6710; }
+      .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; }
+      h1 { margin-top: 0; font-size: 1.7rem; }
+      .button { display: inline-block; border: 0; border-radius: 7px; padding: 10px 14px; background: #1769aa; color: white; text-decoration: none; cursor: pointer; font-size: .95rem; }
+      .button.secondary { background: #e8eff7; color: #18304b; }
+      .button.danger { background: #b42332; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 13px 10px; text-align: left; border-bottom: 1px solid #e7edf4; }
+      th { color: #53677e; font-size: .9rem; }
+      .actions { display: flex; align-items: center; gap: 8px; }
+      .actions form { margin: 0; }
+      label { display: block; margin: 16px 0 6px; font-weight: 700; }
+      input { width: 100%; box-sizing: border-box; padding: 11px; border: 1px solid #cbd6e2; border-radius: 7px; font: inherit; }
+      .form-actions { display: flex; gap: 10px; margin-top: 22px; }
+      .message { margin: 0 0 16px; padding: 12px 14px; border-radius: 7px; background: #e9f7ef; color: #17643a; }
+      .message.error { background: #fff0f0; color: #a51f2b; }
+      .empty { color: #64758a; padding: 22px 0 4px; }
+      @media (max-width: 620px) { .toolbar { align-items: flex-start; flex-direction: column; } table { font-size: .9rem; } th, td { padding: 10px 5px; } .actions { flex-direction: column; align-items: flex-start; } }
+    </style>
+  </head>
+  <body>
+    <header><a href="{{ url_for('home') }}">Student Management System</a></header>
+    <main>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+          <div class="message {{ category }}" role="status">{{ message }}</div>
+        {% endfor %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
