@@ -22,12 +22,18 @@ def home():
 @app.route("/search")
 def search_student():
     name = request.args.get("name", "").strip()
+    department = request.args.get("department", "").strip()
+    filters = ["name LIKE ? COLLATE NOCASE"]
+    values = [f"%{name}%"]
+    if department:
+        filters.append("department LIKE ? COLLATE NOCASE")
+        values.append(f"%{department}%")
+
     with get_db() as connection:
         records = connection.execute(
-            """SELECT id, name, email, department
-               FROM students WHERE name LIKE ? COLLATE NOCASE
-               ORDER BY name LIMIT 100""",
-            (f"%{name}%",),
+            f"""SELECT id, name, email, department FROM students
+                WHERE {' AND '.join(filters)} ORDER BY name LIMIT 100""",
+            values,
         ).fetchall()
     return jsonify([dict(record) for record in records])
 

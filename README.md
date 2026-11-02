@@ -31,27 +31,27 @@ The Week 8(a) local repository should show only `main` after branch deletion. Th
 With the Flask server running, open a URL such as:
 
 ```text
-http://127.0.0.1:5000/search?name=alex
+http://127.0.0.1:5000/search?name=alex&department=CSSE
 ```
 
-The endpoint returns matching student IDs, names, emails, and departments as JSON. It uses a parameterized SQLite query and does not return password hashes.
+The endpoint returns matching student IDs, names, emails, and departments as JSON. It searches partial names and can optionally filter by department. It uses parameterized SQLite values and does not return password hashes.
 
-## Connect to GitHub
+## GitHub workflow
 
-Create an empty GitHub repository named `StudentManagement` (do not initialize it with a README). Then, from this project folder, replace `USERNAME` with your GitHub username and run:
-
-```powershell
-git remote add origin https://github.com/USERNAME/StudentManagement.git
-git push -u origin main
-```
-
-To clone it into another folder and inspect the history:
+The project is published in the `Student-Managment` repository. Clone it into a separate folder with:
 
 ```powershell
-cd ..
-git clone https://github.com/USERNAME/StudentManagement.git
-cd StudentManagement
+git clone https://github.com/Hemanth-007-sai/Student-Managment.git
+cd Student-Managment
 git remote -v
 ```
 
-The project files are ready for this remote workflow. The GitHub repository has not been created or pushed because its owner account and repository URL have not been provided.
+After cloning, the search endpoint can be extended and committed from that clone:
+
+```powershell
+git add app.py README.md
+git commit -m "Enhance student search by department"
+git push origin main
+```
+
+The project can also be pulled later with `git pull origin main`.
